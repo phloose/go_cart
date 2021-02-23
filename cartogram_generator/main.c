@@ -380,6 +380,9 @@ int main(int argc, char* argv[]) {
 
     /******************************* Free memory. ******************************/
 
+    for (i = 0; i < lx; i++)
+        free(xyhalfshift2reg[i]);
+    free(xyhalfshift2reg);
     fftw_destroy_plan(plan_fwd);
     fftw_free(rho_ft);
     fftw_free(rho_init);

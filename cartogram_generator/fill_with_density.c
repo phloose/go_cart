@@ -498,9 +498,9 @@ BOOLEAN fill_with_density1(char* map_file_name, char* area_file_name,
 
     /******************************* Free memory. ******************************/
 
-    for (i = 0; i < lx; i++)
-        free(xyhalfshift2reg[i]);
-    free(xyhalfshift2reg);
+    // for (i = 0; i < lx; i++)
+    //     free(xyhalfshift2reg[i]);
+    // free(xyhalfshift2reg);
     free(dens);
     free(init_area);
 
@@ -527,9 +527,9 @@ void fill_with_density2(void) {
 
     /***************************** Allocate memory. ****************************/
 
-    xyhalfshift2reg = (int**)malloc(lx * sizeof(int*));
-    for (i = 0; i < lx; i++)
-        xyhalfshift2reg[i] = (int*)malloc(ly * sizeof(int));
+    // xyhalfshift2reg = (int**)malloc(lx * sizeof(int*));
+    // for (i = 0; i < lx; i++)
+    //     xyhalfshift2reg[i] = (int*)malloc(ly * sizeof(int));
     dens = (double*)malloc(n_reg * sizeof(double));
     tmp_area = (double*)calloc(n_reg, sizeof(double));
 
@@ -568,9 +568,9 @@ void fill_with_density2(void) {
 
     /******************************* Free memory. ******************************/
 
-    for (i = 0; i < lx; i++)
-        free(xyhalfshift2reg[i]);
-    free(xyhalfshift2reg);
+    // for (i = 0; i < lx; i++)
+    //     free(xyhalfshift2reg[i]);
+    // free(xyhalfshift2reg);
     free(dens);
     free(tmp_area);
 
