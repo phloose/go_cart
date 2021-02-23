@@ -67,6 +67,8 @@ extern int max_id, n_poly, *n_polycorn, *n_polyinreg, n_reg, *polygon_id, *poly_
     **polyinreg, *region_id, *region_id_inv, *region_na;
 extern POINT **cartcorn, **origcorn, **polycorn, *proj, *proj2, *projtmp;
 extern BOOLEAN use_perimeter_threshold;
+extern double* frac_tot_area;
+extern int** xyhalfshift2reg;
 
 /* Variables for digitizing the density. */
 

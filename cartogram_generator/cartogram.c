@@ -28,10 +28,19 @@ void project(BOOLEAN proj_graticule) {
 
     xdisp = (double*)malloc(lx * ly * sizeof(double));
     ydisp = (double*)malloc(lx * ly * sizeof(double));
+    int current_region;
+    double scaling;
     for (i = 0; i < lx; i++)
         for (j = 0; j < ly; j++) {
-            xdisp[i * ly + j] = proj[i * ly + j].x - i - 0.5;
-            ydisp[i * ly + j] = proj[i * ly + j].y - j - 0.5;
+            scaling = 1.0;
+            current_region = xyhalfshift2reg[i][j];
+            if (current_region >= 0 && current_region <= max_id) {
+                if (frac_tot_area[current_region] <= 1.0) {
+                    scaling = 0.5;
+                }
+            }
+            xdisp[i * ly + j] = (proj[i * ly + j].x - i - 0.5) * scaling;
+            ydisp[i * ly + j] = (proj[i * ly + j].y - j - 0.5) * scaling;
         }
 
     /********************* Project the polygon coordinates. ********************/
