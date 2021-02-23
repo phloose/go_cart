@@ -75,6 +75,9 @@ int max_id, n_poly, *n_polycorn, *n_polyinreg, n_reg, *polygon_id, *poly_is_hole
 size_t projsize;
 POINT **cartcorn, **origcorn, **polycorn, *proj, *proj2, *projtmp, *projinit;
 BOOLEAN use_perimeter_threshold;
+double* region_area;
+double total_area;
+double* frac_tot_area;
 
 /* Variables for digitizing the density. */
 
@@ -261,12 +264,29 @@ int main(int argc, char* argv[]) {
     }
 
     /*************** Allocate memory for the projected positions. **************/
-
+    region_area = malloc(n_reg * sizeof(double));
+    frac_tot_area = malloc(n_reg * sizeof(double));
     projsize = lx * ly * sizeof(POINT);
     proj = (POINT*)malloc(projsize);
     cartcorn = (POINT**)malloc(n_poly * sizeof(POINT*));
     for (i = 0; i < n_poly; i++)
         cartcorn[i] = (POINT*)malloc(n_polycorn[i] * sizeof(POINT));
+
+    for (int n = 0; n < n_reg; n++) {
+        for (int k = 0; k < n_polyinreg[n]; k++) {
+            region_area[n] += polygon_area(n_polycorn[polyinreg[n][k]], polycorn[polyinreg[n][k]]);
+        }
+        printf("Region %i has area %f\n", n, region_area[n]);
+    }
+
+    for (int n = 0; n < n_reg; n++) {
+        total_area += region_area[n];
+    }
+
+    for (int n = 0; n < n_reg; n++) {
+        frac_tot_area[n] = region_area[n] / total_area * 100;
+        printf("Region %i's fraction of the total area is %f\n", n, frac_tot_area[n]);
+    }
 
     /* proj[i*ly+j] will store the current position of the point that started  */
     /* at (i+0.5, j+0.5).                                                      */
