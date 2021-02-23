@@ -87,5 +87,5 @@ AC_LINK_IFELSE(
 )
 LIBS=$save_LIBS
 CFLAGS=$save_CFLAGS
-
+CFLAGS="$CFLAGS -g -O0"
 AC_OUTPUT(Makefile cartogram_generator/Makefile)
